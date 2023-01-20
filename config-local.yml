@@ -1,0 +1,19 @@
+app:
+  host: 0.0.0.0
+  port: 8001
+  read_timeout: 1200
+  write_timeout: 1200
+  idle_timeout: 1200
+  cors_allowed_hosts:
+    - http://127.0.0.1:3000
+  storage_path: "./storage"
+  room_list:
+    - "101"
+    - "102A"
+    - "102B"
+    - "202"
+    - "303"
+    - "304"
+    - "305"
+    - "401"
+  user_print_limit: 10

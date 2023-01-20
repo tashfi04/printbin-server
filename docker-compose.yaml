@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+#  app:
+#    build: ./
+#    ports:
+#      - 8001:8001
+#    volumes:
+#      - ./storage:/usr/local/bin/storage
+
+
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: printbin
+    ports:
+      - "5432:5432"
+    volumes:
+      - printbin-db:/var/lib/postgresql/data
+
+volumes:
+  printbin-db:
