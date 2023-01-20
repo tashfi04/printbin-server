@@ -27,7 +27,6 @@ func logout(w http.ResponseWriter, r *http.Request) {
 	rndr.JSON(w, http.StatusOK, utils.Response{
 		StatusCode: http.StatusOK,
 		Message:    "Successfully logged out",
-		Error:      err.Error(),
 	})
 	return
 }

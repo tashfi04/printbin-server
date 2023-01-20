@@ -61,7 +61,7 @@ func (*userData) GetMinimalUserInfo(db *gorm.DB, userID uint) (*dtos.MinimalUser
 	userModel := models.User{}
 
 	if err := db.Table(userModel.TableName()).
-		Select([]string{"username", "role"}).
+		Select([]string{"username", "role", "team_name", "room_number"}).
 		Where("id = ?", userID).
 		Take(&dbResponse).Error; err != nil {
 		return nil, err

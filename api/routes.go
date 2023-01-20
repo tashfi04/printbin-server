@@ -62,6 +62,7 @@ func RegisterRoutes() {
 		r.Group(func(r chi.Router) {
 			r.Use(middlewares.AuthenticateClient)
 			r.Get("/isAuth", isAuthenticated)
+			r.Get("/logout", logout)
 			r.Mount("/file", fileRoutes())
 			r.Mount("/print", printFileRoutes())
 			r.Mount("/admin", adminRoutes())
