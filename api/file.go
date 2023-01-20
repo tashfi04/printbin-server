@@ -180,7 +180,7 @@ func submitFile(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 
-	if !strings.HasSuffix(header.Filename, ".docx") {
+	if !strings.HasSuffix(header.Filename, ".txt") {
 		utils.Logger().Errorln("invalid file type")
 		rndr.JSON(w, http.StatusBadRequest, utils.Response{
 			StatusCode: http.StatusBadRequest,
@@ -234,7 +234,7 @@ func submitFile(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	dest := utils.BuildPath(trackingID + ".docx")
+	dest := utils.BuildPath(trackingID + ".txt")
 	f, err := os.OpenFile(dest, os.O_WRONLY|os.O_CREATE, 0755)
 	if err != nil {
 		utils.Logger().Errorln(err)
