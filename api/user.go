@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/tashfi04/printbin-server/api/middlewares"
+	"github.com/tashfi04/printbin-server/config"
 	"github.com/tashfi04/printbin-server/conn"
 	"github.com/tashfi04/printbin-server/dtos"
 	"github.com/tashfi04/printbin-server/repos"
@@ -126,8 +127,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := dtos.MinimalUserInfo{
-		Username: userInfo.Username,
-		Role:     userInfo.Role,
+		Username:                userInfo.Username,
+		Role:                    userInfo.Role,
+		TeamName:                userInfo.TeamName,
+		RoomNumber:              userInfo.RoomNumber,
+		AvailablePrintPageCount: config.App().UserPrintLimit - int(userInfo.PrintPageCount),
 	}
 
 	rndr.JSON(w, http.StatusOK, utils.Response{

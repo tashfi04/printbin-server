@@ -1,6 +1,7 @@
 package repos
 
 import (
+	"github.com/tashfi04/printbin-server/config"
 	"github.com/tashfi04/printbin-server/data"
 	"github.com/tashfi04/printbin-server/dtos"
 	"github.com/tashfi04/printbin-server/models"
@@ -36,13 +37,13 @@ func (*userRepository) GetMinimalUserInfo(db *gorm.DB, userID uint) (*dtos.Minim
 		return nil, err
 	}
 
-	resp := dtos.MinimalUserInfo {
-		Username: user.Username,
-		Role: user.Role,
-		TeamName: user.TeamName,
-		RoomNumber: user.RoomNumber,
-		AvailablePrintPageCount: config.App().UserPrintLimit - user.PrintPageCount,
+	resp := dtos.MinimalUserInfo{
+		Username:                user.Username,
+		Role:                    user.Role,
+		TeamName:                user.TeamName,
+		RoomNumber:              user.RoomNumber,
+		AvailablePrintPageCount: config.App().UserPrintLimit - int(user.PrintPageCount),
 	}
 
-	return user, nil
+	return &resp, nil
 }

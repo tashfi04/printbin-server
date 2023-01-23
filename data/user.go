@@ -1,7 +1,6 @@
 package data
 
 import (
-	"github.com/tashfi04/printbin-server/dtos"
 	"github.com/tashfi04/printbin-server/models"
 	"gorm.io/gorm"
 )

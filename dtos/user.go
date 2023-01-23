@@ -7,9 +7,9 @@ type GoogleUserData struct {
 }
 
 type MinimalUserInfo struct {
-	Username   string `json:"username"`
-	Role       uint   `json:"role"`
-	TeamName   string `json:"team_name"`
-	RoomNumber string `json:"room_number"`
-	AvailablePrintPageCount int `json:"available_print_page_count,omitempty"`
+	Username                string `json:"username"`
+	Role                    uint   `json:"role"`
+	TeamName                string `json:"team_name"`
+	RoomNumber              string `json:"room_number"`
+	AvailablePrintPageCount int    `json:"available_print_page_count"`
 }
