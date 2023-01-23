@@ -54,14 +54,14 @@ func (*userData) GetUserByUsername(db *gorm.DB, username string) (*models.User, 
 	return &dbResponse, nil
 }
 
-func (*userData) GetMinimalUserInfo(db *gorm.DB, userID uint) (*dtos.MinimalUserInfo, error) {
+func (*userData) GetMinimalUserInfo(db *gorm.DB, userID uint) (*models.User, error) {
 
-	dbResponse := dtos.MinimalUserInfo{}
+	dbResponse := models.User{}
 
 	userModel := models.User{}
 
 	if err := db.Table(userModel.TableName()).
-		Select([]string{"username", "role", "team_name", "room_number"}).
+		Select([]string{"username", "role", "team_name", "room_number", "print_page_count"}).
 		Where("id = ?", userID).
 		Take(&dbResponse).Error; err != nil {
 		return nil, err

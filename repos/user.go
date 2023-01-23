@@ -35,5 +35,14 @@ func (*userRepository) GetMinimalUserInfo(db *gorm.DB, userID uint) (*dtos.Minim
 	if err != nil {
 		return nil, err
 	}
+
+	resp := dtos.MinimalUserInfo {
+		Username: user.Username,
+		Role: user.Role,
+		TeamName: user.TeamName,
+		RoomNumber: user.RoomNumber,
+		AvailablePrintPageCount: config.App().UserPrintLimit - user.PrintPageCount,
+	}
+
 	return user, nil
 }
