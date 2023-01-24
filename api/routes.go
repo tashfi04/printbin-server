@@ -97,7 +97,7 @@ func printFileRoutes() http.Handler {
 
 	h.Group(func(r chi.Router) {
 		r.Use(middlewares.AuthenticateAdmin)
-		r.Get("/", listFiles)
+		r.Post("/", listFiles)
 		r.Patch("/", updateStatus)
 		r.Get("/storage/*", serveFile)
 		r.Get("/rooms", listRooms)
