@@ -27,7 +27,7 @@ func updateStatus(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err = repos.PrintFileRepo().UpdateStatus(conn.DB(), trackingID); err != nil {
+	if err := repos.PrintFileRepo().UpdateStatus(conn.DB(), trackingID); err != nil {
 		utils.Logger().Errorln(err)
 		if err == gorm.ErrRecordNotFound {
 			rndr.JSON(w, http.StatusOK, utils.Response{
