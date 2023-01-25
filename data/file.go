@@ -107,7 +107,7 @@ func (*fileData) Update(db *gorm.DB, trackingID string) error {
 	fileModel := models.File{}
 
 	if err := db.Model(&fileModel).
-		Where("tracking_id = ?", trackingID)
+		Where("tracking_id = ?", trackingID).
 		Update("status", 2).Error; err != nil {
 		return err
 	}
