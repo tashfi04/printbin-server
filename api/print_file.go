@@ -16,28 +16,18 @@ import (
 
 func updateStatus(w http.ResponseWriter, r *http.Request) {
 
-	stringFileID := r.Header.Get("ID")
-	if stringFileID == "" {
-		utils.Logger().Errorln("ID missing in header")
+	trackingID := r.Header.Get("Tracking-ID")
+	if trackingID == "" {
+		utils.Logger().Errorln("Tracking-ID missing in header")
 		rndr.JSON(w, http.StatusBadRequest, utils.Response{
 			StatusCode: http.StatusBadRequest,
-			Message:    "ID missing in header",
+			Message:    "Tracking-ID missing in header",
+			Error:      "Tracking-ID missing in header",
 		})
 		return
 	}
 
-	fileID, err := strconv.Atoi(stringFileID)
-	if err != nil {
-		utils.Logger().Errorln(err)
-		rndr.JSON(w, http.StatusBadRequest, utils.Response{
-			StatusCode: http.StatusBadRequest,
-			Message:    "Invalid ID",
-			Error:      err.Error(),
-		})
-		return
-	}
-
-	if err = repos.PrintFileRepo().UpdateStatus(conn.DB(), uint(fileID)); err != nil {
+	if err = repos.PrintFileRepo().UpdateStatus(conn.DB(), trackingID); err != nil {
 		utils.Logger().Errorln(err)
 		if err == gorm.ErrRecordNotFound {
 			rndr.JSON(w, http.StatusOK, utils.Response{

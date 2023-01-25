@@ -84,7 +84,7 @@ func (*fileData) Create(db *gorm.DB, file *models.File, printPageCount uint) err
 	return tx.Commit().Error
 }
 
-func (*fileData) Exists(db *gorm.DB, id uint) (bool, error) {
+func (*fileData) Exists(db *gorm.DB, trackingID string) (bool, error) {
 
 	fileModel := models.File{}
 
@@ -92,7 +92,7 @@ func (*fileData) Exists(db *gorm.DB, id uint) (bool, error) {
 
 	subQuery := db.Table(fileModel.TableName()).
 		Select("1").
-		Where("id = ? AND status = ?", id, models.FileStatusTypeToValue[models.FileStatusTypePending])
+		Where("tracking_id = ? AND status = ?", trackingID, models.FileStatusTypeToValue[models.FileStatusTypePending])
 
 	if err := db.Table(fileModel.TableName()).
 		Select("EXISTS (?)", subQuery).
@@ -102,13 +102,12 @@ func (*fileData) Exists(db *gorm.DB, id uint) (bool, error) {
 	return dbResponse, nil
 }
 
-func (*fileData) Update(db *gorm.DB, id uint) error {
+func (*fileData) Update(db *gorm.DB, trackingID string) error {
 
-	fileModel := models.File{
-		ID: id,
-	}
+	fileModel := models.File{}
 
 	if err := db.Model(&fileModel).
+		Where("tracking_id = ?", trackingID)
 		Update("status", 2).Error; err != nil {
 		return err
 	}

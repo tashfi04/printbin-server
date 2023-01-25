@@ -9,7 +9,7 @@ import (
 )
 
 type PrintFileRepository interface {
-	UpdateStatus(db *gorm.DB, id uint) error
+	UpdateStatus(db *gorm.DB, trackingID string) error
 	ListFiles(db *gorm.DB, currentPage, pageLimit int, status, searchParam string, roomList []string) (*dtos.ListFilesResp, error)
 }
 
@@ -21,9 +21,9 @@ func PrintFileRepo() PrintFileRepository {
 	return &printFileRepo
 }
 
-func (*printFileRepository) UpdateStatus(db *gorm.DB, id uint) error {
+func (*printFileRepository) UpdateStatus(db *gorm.DB, trackingID string) error {
 
-	exists, err := data.File().Exists(db, id)
+	exists, err := data.File().Exists(db, trackingID)
 	if err != nil {
 		return err
 	}
@@ -32,7 +32,7 @@ func (*printFileRepository) UpdateStatus(db *gorm.DB, id uint) error {
 		return gorm.ErrRecordNotFound
 	}
 
-	if err = data.File().Update(db, id); err != nil {
+	if err = data.File().Update(db, trackingID); err != nil {
 		return err
 	}
 
